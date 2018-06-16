@@ -1,7 +1,12 @@
-const Blockchain = require('./blockchain')
+const Blockchain = require('./src/blockchain')
+const Ledger = require('./src/ledger')
 
-let itpChain = new Blockchain(5.0)
+let ledger = new Ledger()
 
-while(true) {
-  itpChain.run()
-}
+ledger.getAllBlocks().then(async chain => {
+  let itpChain = await new Blockchain(5.0, chain, ledger)
+
+  while(true) {
+    itpChain.run()
+  }
+})
